@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+
+  <!-- Weather Dashboard -->
+  <div class="container mx-auto p-6">
+    <h1 class="text-center text-3xl font-bold  bg-blue-600 text-slate-50 mb-6">Weather Dashboard</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <!-- Input for city search -->
+      <div class="mb-6">
+        <input id="city-input" type="text" class="w-full p-3 border rounded-md" placeholder="E.g., New York, London, Tokyo">
+        <button onclick="fetchWeather()" class="w-full bg-blue-600 text-white p-3 mt-2 rounded-md">Search</button>
+        <button onclick="fetchWeatherByLocation()" class="w-full bg-gray-300 text-black p-3 mt-2 rounded-md">Use Current Location</button>
+      </div>
+
+      <!-- Current Weather Section -->
+      <div id="current-weather" class="bg-blue-100 p-6 rounded-md text-center mb-6 hidden">
+        <h2 id="city-name" class="text-2xl font-bold text-blue-700">City Name (Date)</h2>
+        <p id="temperature" class="text-xl">Temperature: 20°C</p>
+        <p id="wind" class="text-md">Wind: 5 m/s</p>
+        <p id="humidity" class="text-md">Humidity: 60%</p>
+        <p id="description" class="text-lg font-semibold mt-4">Weather Description</p>
+      </div>
+
+      <!-- 5-Day Forecast Section -->
+      <h3 class="text-xl font-bold text-gray-700 mb-4">5-Day Forecast</h3>
+      <div id="forecast" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
