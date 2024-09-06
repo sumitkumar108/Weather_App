@@ -1,10 +1,14 @@
 // OpenWeatherMap API key
-const API_KEY = '8a7ae88979e65d8d967c4973ef905c79';  // Replace with your OpenWeatherMap API Key
+const API_KEY = '8a7ae88979e65d8d967c4973ef905c79'; 
+// Function to fetch weather on page load (if there is a stored city)
 
 // Function to fetch weather by city name
 function fetchWeather() {
   const city = document.getElementById('city-input').value;
   if (!city) return alert('Please enter a city name');
+   
+  localStorage.setItem('lastSearchedCity', city);
+    console.log("City saved to localStorage:", city);
   
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
   
@@ -26,6 +30,7 @@ function fetchWeatherByLocation() {
       .catch(err => console.error(err));
   });
 }
+
 
 // Function to display current weather
 function displayCurrentWeather(data) {
@@ -72,3 +77,44 @@ function displayFiveDayForecast(data) {
     forecastDiv.appendChild(forecastElement);
   });
 }
+
+document.getElementById('use-location-btn').addEventListener('click', function() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+});
+
+function successCallback(position) {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+
+  console.log("Latitude:", lat, "Longitude:", lon);
+
+  // Call the weather API with latitude and longitude
+  fetchWeatherByLocation(lat, lon);
+}
+
+function errorCallback(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      alert("User denied the request for Geolocation. Please allow access to use this feature.");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Location information is unavailable.");
+      break;
+    case error.TIMEOUT:
+      alert("The request to get user location timed out.");
+      break;
+    case error.UNKNOWN_ERROR:
+      alert("An unknown error occurred.");
+      break;
+  }
+}
+
+
+
+
+
+
